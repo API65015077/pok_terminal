@@ -1,2 +1,2 @@
-# pok_terminal
-nightly version
+# pok_terminal :exclamation: 
+nightly version :weary:
