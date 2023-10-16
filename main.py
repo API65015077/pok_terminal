@@ -7,7 +7,7 @@ start = time.time()
 class Player:
     def __init__(self, name):
         self.name = name
-        self.pocket = 500
+        self.pocket = 100
         self.on_hand = {
                         "card": [],
                         "point": 0,
@@ -27,6 +27,8 @@ class Player:
         deck.shuffle()
 
     def check_point(self):
+        self.on_hand["point"] = 0
+        self.on_hand["bound"] = 1
         for card in self.on_hand["card"]:
             if card[0] == "A":
                 self.on_hand["point"] += 1
@@ -36,6 +38,8 @@ class Player:
                 self.on_hand["point"] += int(card[0])   
         if self.on_hand["point"] > 9:
             self.on_hand["point"] -= 10
+        elif self.on_hand["point"] < 0 or self.on_hand["point"] == 10:
+            self.on_hand["point"] = 0
 
     def check_bound(self):
         count_card = len(self.on_hand["card"][0].strip())-1  
@@ -65,6 +69,7 @@ class Player:
     def you_wana_play(self, call):
         if call == "y":
             self.on_hand["card"].append(deck.draw())
+            self.call_check()
 
     def call_check(self):
         self.check_point()
@@ -141,25 +146,15 @@ class Dealer:
     def check_pocket(self, player1, player2):
         if player1.pocket <= 0:
             print("--------------------")
-            print("player1 is bankrupt")
-            print("player2 is the winner")
-            print("--------------------")
-            print("Good bye! see you again.")
-            end = time.time()
-            print("--------------------")
-            print("time:",end - start)
+            print(player1.name, "is bankrupt")
+            print(player2.name, "is the winner")
             print("--------------------")
             print("Good bye! see you again.")
             exit()
         elif player2.pocket <= 0:
             print("--------------------")
-            print("player2 is bankrupt")
-            print("player1 is the winner")
-            print("--------------------")
-            print("Good bye! see you again.")
-            end = time.time()
-            print("--------------------")
-            print("time:",end - start)
+            print(player2.name,"is bankrupt")
+            print(player1.name, "is the winner")
             print("--------------------")
             print("Good bye! see you again.")
             exit()
@@ -269,14 +264,5 @@ while play:
     if input("do you want to play again? (y/n): ") == "n":
         print("--------------------")
         print("Good bye! see you again.")
-        end = time.time()
-        print("--------------------")
-        print("time:",end - start)
-        print("--------------------")
-        print("Good bye! see you again.")
         exit()
 
-    # print("deck:",deck.deck)
-    # os.system('cls')
-    # my_turn.rotate(-1)
-    break
