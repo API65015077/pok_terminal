@@ -1,9 +1,9 @@
 from collections import deque
 from random import shuffle
 import time
-import os
+# import os
 
-start = time.time()
+# start = time.time()
 class Player:
     def __init__(self, name):
         self.name = name
@@ -261,8 +261,12 @@ while play:
     my_turn[0].hand0ut(deck) 
     my_turn[1].hand0ut(deck)
 
-    if input("do you want to play again? (y/n): ") == "n":
+    want_to_play = input("do you want to play again? (y/n): ")
+    if want_to_play != "y":
         print("--------------------")
+        if want_to_play != "n":
+            print("Your Answer is not correct")
         print("Good bye! see you again.")
         exit()
+    
 
