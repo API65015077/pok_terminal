@@ -1,7 +1,6 @@
 from collections import deque
 from random import shuffle
 import time
-# import os
 
 # start = time.time()
 class Player:
@@ -268,5 +267,3 @@ while play:
             print("Your Answer is not correct")
         print("Good bye! see you again.")
         exit()
-    
-
