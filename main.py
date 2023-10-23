@@ -73,7 +73,106 @@ class Player:
     def call_check(self):
         self.check_point()
         self.check_bound()
+    
+    def cards_terminal_1(self, prev_card, prev_face):
+        print()
+        print("\t ________________      ")
+        print("\t|                |     ")
+        if prev_card == '10':
+            print("\t|  {}            |    ".format(prev_card)) 
+        else:
+            print("\t|  {}             |    ".format(prev_card))  
+        print("\t|                |    ")
+        print("\t|                |    ")
+        print("\t|                |    ")
+        print("\t|                |    ")
+        print("\t|       {}        |    ".format(prev_face))
+        print("\t|                |    ")
+        print("\t|                |    ")
+        print("\t|                |    ")
+        print("\t|                |    ")
+        if prev_card == '10':
+            print("\t|            {}  |    ".format(prev_card))
+        else:
+            print("\t|            {}   |    ".format(prev_card))  
+        print("\t|________________|    ")
+        print()
 
+    def cards_terminal_2(self, prev_card, prev_face , current_card, current_face):
+        print()
+        print("\t ________________      ________________     ")
+        print("\t|                |    |                |    ")
+        if prev_card == '10' and current_card == '10':
+            print("\t|  {}            |    |  {}            |    ".format(prev_card,current_card))
+        elif prev_card == '10': 
+            print("\t|  {}            |    |  {}             |   ".format(prev_card,current_card))   
+        elif current_card == '10':
+            print("\t|  {}             |    |  {}            |   ".format(prev_card,current_card))   
+        else:
+            print("\t|  {}             |    |  {}             |   ".format(prev_card,current_card))  
+        print("\t|                |    |                |    ")
+        print("\t|                |    |                |    ")
+        print("\t|                |    |                |    ")
+        print("\t|                |    |                |    ")
+        print("\t|       {}        |    |       {}        |    ".format(prev_face, current_face))
+        print("\t|                |    |                |    ")
+        print("\t|                |    |                |    ")
+        print("\t|                |    |                |    ")
+        print("\t|                |    |                |    ")
+        if prev_card == '10' and current_card == '10':
+            print("\t|            {}  |    |            {}  |    ".format(prev_card,current_card))
+        elif prev_card == '10': 
+            print("\t|            {}  |    |            {}   |    ".format(prev_card,current_card))   
+        elif current_card == '10':
+            print("\t|            {}   |    |            {}  |    ".format(prev_card,current_card))   
+        else:
+            print("\t|            {}   |    |            {}   |    ".format(prev_card,current_card))  
+        print("\t|________________|    |________________|    ")
+        print()
+
+    def cards_terminal_3(self, prev_card, prev_face, current_card, current_face, next_card, next_face):
+        print()
+        print("\t ________________      ________________      ________________")
+        print("\t|                |    |                |    |                |")
+        if prev_card == '10' and current_card == '10' and next_card == '10':
+            print("\t|  {}            |    |  {}            |    |  {}            |".format(prev_card,current_card,next_card))
+        elif prev_card == '10' and current_card == '10':
+            print("\t|  {}            |    |  {}            |    |  {}             |".format(prev_card,current_card,next_card))
+        elif prev_card == '10' and next_card == '10':
+            print("\t|  {}            |    |  {}             |    |  {}            |".format(prev_card,current_card,next_card))
+        elif prev_card == '10': 
+            print("\t|  {}            |    |  {}             |    |  {}             |".format(prev_card,current_card,next_card))   
+        elif current_card == '10':
+            print("\t|  {}             |    |  {}            |    |  {}            |".format(prev_card,current_card,next_card))   
+        elif next_card == '10':
+            print("\t|  {}             |    |  {}             |    |  {}            |".format(prev_card,current_card,next_card))
+        else:
+            print("\t|  {}             |    |  {}             |    |  {}             |".format(prev_card,current_card,next_card))  
+        print("\t|                |    |                |    |                |")
+        print("\t|                |    |                |    |                |")
+        print("\t|                |    |                |    |                |")
+        print("\t|                |    |                |    |                |")
+        print("\t|       {}        |    |       {}        |    |       {}        |".format(prev_face, current_face, next_face))
+        print("\t|                |    |                |    |                |")
+        print("\t|                |    |                |    |                |")
+        print("\t|                |    |                |    |                |")
+        print("\t|                |    |                |    |                |")
+        if prev_card == '10' and current_card == '10' and next_card == '10':
+            print("\t|            {}  |    |            {}  |    |            {}  |".format(prev_card,current_card,next_card))
+        elif prev_card == '10' and current_card == '10':
+            print("\t|            {}  |    |            {}  |    |             {}  |".format(prev_card,current_card,next_card))
+        elif prev_card == '10' and next_card == '10':
+            print("\t|            {}  |    |            {}   |    |            {}  |".format(prev_card,current_card,next_card))
+        elif prev_card == '10': 
+            print("\t|            {}  |    |            {}   |    |             {}  |".format(prev_card,current_card,next_card))   
+        elif current_card == '10':
+            print("\t|            {}   |    |            {}  |    |            {}  |".format(prev_card,current_card,next_card))   
+        elif next_card == '10':
+            print("\t|            {}   |    |            {}   |    |            {}  |".format(prev_card,current_card,next_card))
+        else:
+            print("\t|            {}   |    |            {}   |    |            {}   |".format(prev_card,current_card,next_card))  
+        print("\t|________________|    |________________|    |________________|")
+        print()
 
 class Bot(Player):
     def __init__(self, name):
@@ -86,6 +185,44 @@ class Bot(Player):
             self.check_point()
             self.check_bound()
         # os.system('cls')
+
+    def card_terminal_q2(self):
+        print()
+        print("\t ________________      ________________ ")
+        print("\t|                |    |                |")
+        print("\t|                |    |                |")
+        print("\t|      * *       |    |      * *       |")
+        print("\t|    *     *     |    |    *     *     |")
+        print("\t|   *       *    |    |   *       *    |")
+        print("\t|   *       *    |    |   *       *    |")
+        print("\t|          *     |    |          *     |")
+        print("\t|         *      |    |         *      |")
+        print("\t|        *       |    |        *       |")
+        print("\t|                |    |                |")
+        print("\t|                |    |                |")
+        print("\t|        *       |    |        *       |")
+        print("\t|________________|    |________________|")
+        print()
+
+
+    def card_terminal_q1(self):
+        print()
+        print("\t ________________")
+        print("\t|                |")
+        print("\t|                |")
+        print("\t|      * *       |")
+        print("\t|    *     *     |")
+        print("\t|   *       *    |")
+        print("\t|   *       *    |")
+        print("\t|          *     |")
+        print("\t|         *      |")
+        print("\t|        *       |")
+        print("\t|                |")
+        print("\t|                |")
+        print("\t|        *       |")
+        print("\t|________________|")
+        print()
+
 
 
 class Dealer:
@@ -203,8 +340,27 @@ class Deck:
         player.on_hand["card"].append(self.draw())
         if player.__class__.__name__ == "Player":
             print(player.name ,"card:",player.on_hand["card"])
+            if len(player.on_hand["card"]) == 1:
+                if player.on_hand["card"][0][1] == "0":
+                    player.cards_terminal_1(str(player.on_hand["card"][0][0])+str(player.on_hand["card"][0][1]) , player.on_hand["card"][0][-2])
+                else:
+                    player.cards_terminal_1(player.on_hand["card"][0][0], player.on_hand["card"][0][-2])
+            elif len(player.on_hand["card"]) == 2:
+                if player.on_hand["card"][0][1] == "0" and player.on_hand["card"][1][1] != "0":
+                    print("su")
+                    player.cards_terminal_2(str(player.on_hand["card"][0][0])+str(player.on_hand["card"][0][1]) , player.on_hand["card"][0][-2] , player.on_hand["card"][1][0], player.on_hand["card"][1][-2])
+                elif player.on_hand["card"][0][1] == "0" and player.on_hand["card"][1][1] == "0":
+                    player.cards_terminal_2(str(player.on_hand["card"][0][0])+str(player.on_hand["card"][0][1]), player.on_hand["card"][0][-2] , str(player.on_hand["card"][1][0])+str(player.on_hand["card"][1][1]), player.on_hand["card"][1][-2])
+                else:
+                    player.cards_terminal_2(player.on_hand["card"][0][0], player.on_hand["card"][0][-2], player.on_hand["card"][1][0], player.on_hand["card"][1][-2])
+            elif len(player.on_hand["card"]) == 3:
+                player.cards_terminal_3(player.on_hand["card"][0][0], player.on_hand["card"][0][-2], player.on_hand["card"][1][0], player.on_hand["card"][1][-2], player.on_hand["card"][2][0], player.on_hand["card"][2][-2])
         elif player.__class__.__name__ == "Bot":
             print(player.name ,"card:","??")
+            if len(player.on_hand["card"]) == 1:
+                player.card_terminal_q1()
+            elif len(player.on_hand["card"]) == 2:
+                player.card_terminal_q2()
         time.sleep(0.5)
         
 
@@ -218,7 +374,16 @@ max_size = 3
 my_turn.append(p1)
 my_turn.append(bot)
 
-
+# deck.shuffle()
+# deck.sent_card_to_player(my_turn[1])
+# # time.sleep(1)
+# deck.sent_card_to_player(my_turn[0])
+# deck.sent_card_to_player(my_turn[1])
+# deck.sent_card_to_player(my_turn[0])
+# p1.cards_terminal_1(p1.on_hand["card"][0][0], p1.on_hand["card"][0][1])
+# time.sleep(1)
+# deck.sent_card_to_player(my_turn[0])
+# p1.cards_terminal_2(p1.on_hand["card"][0][0], p1.on_hand["card"][0][1], p1.on_hand["card"][1][0], p1.on_hand["card"][1][-2])
 
 play = True
 while play:
@@ -267,3 +432,6 @@ while play:
             print("Your Answer is not correct")
         print("Good bye! see you again.")
         exit()
+
+
+
