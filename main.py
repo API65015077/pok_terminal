@@ -2,7 +2,6 @@ from collections import deque
 from random import shuffle
 import time
 
-# start = time.time()
 class Player:
     def __init__(self, name):
         self.name = name
@@ -43,7 +42,6 @@ class Player:
     def check_bound(self):
         count_card = len(self.on_hand["card"][0].strip())-1  
         count_card1 = len(self.on_hand["card"][1].strip())-1
-
         if count_card == 2 and count_card1 == 2: # 2 2
             sym = self.on_hand["card"][0][1]
             sym1 = self.on_hand["card"][1][1]
@@ -67,15 +65,51 @@ class Player:
 
     def you_wana_play(self, call):
         if call == "y":
-            self.on_hand["card"].append(deck.draw())
-            self.call_check()
+            if self.__class__.__name__ == "Player":
+                time.sleep(0.5)
+                self.on_hand["card"].append(deck.draw())
+                print(self.name, "draw a card")
+                if self.on_hand["card"][0][1] == "0" and self.on_hand["card"][1][1] == "0" and self.on_hand["card"][2][1] == "0":
+                    self.cards_terminal_3(str(self.on_hand["card"][0][0])+str(self.on_hand["card"][0][1]), self.on_hand["card"][0][-2], str(self.on_hand["card"][1][0])+str(self.on_hand["card"][1][1]), self.on_hand["card"][1][-2], str(self.on_hand["card"][2][0])+str(self.on_hand["card"][2][1]), self.on_hand["card"][2][-2])
+                    # 10 10 10
+                elif self.on_hand["card"][0][1] != "0" and self.on_hand["card"][1][1] == "0" and self.on_hand["card"][2][1] == "0":
+                    self.cards_terminal_3(self.on_hand["card"][0][0], self.on_hand["card"][0][-2], str(self.on_hand["card"][1][0])+str(self.on_hand["card"][1][1]), self.on_hand["card"][1][-2], str(self.on_hand["card"][2][0])+str(self.on_hand["card"][2][1]), self.on_hand["card"][2][-2])
+                    # 0 10 10
+                elif self.on_hand["card"][0][1] == "0" and self.on_hand["card"][1][1] != "0" and self.on_hand["card"][2][1] == "0":
+                    self.cards_terminal_3(str(self.on_hand["card"][0][0])+str(self.on_hand["card"][0][1]), self.on_hand["card"][0][-2], self.on_hand["card"][1][0], self.on_hand["card"][1][-2], str(self.on_hand["card"][2][0])+str(self.on_hand["card"][2][1]), self.on_hand["card"][2][-2])
+                    # 10 0 10
+                elif self.on_hand["card"][0][1] == "0" and self.on_hand["card"][1][1] == "0" and self.on_hand["card"][2][1] != "0":
+                    self.cards_terminal_3(str(self.on_hand["card"][0][0])+str(self.on_hand["card"][0][1]), self.on_hand["card"][0][-2], str(self.on_hand["card"][1][0])+str(self.on_hand["card"][1][1]), self.on_hand["card"][1][-2], self.on_hand["card"][2][0], self.on_hand["card"][2][-2])
+                    # 10 10 0
+                elif self.on_hand["card"][0][1] != "0" and self.on_hand["card"][1][1] != "0" and self.on_hand["card"][2][1] == "0":
+                    self.cards_terminal_3(self.on_hand["card"][0][0], self.on_hand["card"][0][-2], self.on_hand["card"][1][0], self.on_hand["card"][1][-2], str(self.on_hand["card"][2][0])+str(self.on_hand["card"][2][1]), self.on_hand["card"][2][-2])
+                    # 0 0 10
+                elif self.on_hand["card"][0][1] != "0" and self.on_hand["card"][1][1] == "0" and self.on_hand["card"][2][1] != "0":
+                    self.cards_terminal_3(self.on_hand["card"][0][0], self.on_hand["card"][0][-2], str(self.on_hand["card"][1][0])+str(self.on_hand["card"][1][1]), self.on_hand["card"][1][-2], self.on_hand["card"][2][0], self.on_hand["card"][2][-2])
+                    # 0 10 0
+                elif self.on_hand["card"][0][1] == "0" and self.on_hand["card"][1][1] != "0" and self.on_hand["card"][2][1] != "0":
+                    self.cards_terminal_3(str(self.on_hand["card"][0][0])+str(self.on_hand["card"][0][1]), self.on_hand["card"][0][-2], self.on_hand["card"][1][0], self.on_hand["card"][1][-2], self.on_hand["card"][2][0], self.on_hand["card"][2][-2])
+                    # 10 0 0
+                else:
+                    self.cards_terminal_3(self.on_hand["card"][0][0], self.on_hand["card"][0][-2], self.on_hand["card"][1][0], self.on_hand["card"][1][-2], self.on_hand["card"][2][0], self.on_hand["card"][2][-2])
+                self.call_check()
 
     def call_check(self):
         self.check_point()
         self.check_bound()
+
+    def show_point(self, point, bound):
+        print("\t\t     ____________________")
+        print("\t\t    |                    |")
+        if point >= 10:
+            print("\t\t    |     Point = {}     |".format(point))
+        else:   
+            print("\t\t    |     Point = {}      |".format(point))
+        print("\t\t    |     Bound = {}      |".format(bound))  
+        print("\t\t    |____________________|")
     
     def cards_terminal_1(self, prev_card, prev_face):
-        print()
+        # print()
         print("\t ________________      ")
         print("\t|                |     ")
         if prev_card == '10':
@@ -99,7 +133,7 @@ class Player:
         print()
 
     def cards_terminal_2(self, prev_card, prev_face , current_card, current_face):
-        print()
+        # print()
         print("\t ________________      ________________     ")
         print("\t|                |    |                |    ")
         if prev_card == '10' and current_card == '10':
@@ -131,7 +165,7 @@ class Player:
         print()
 
     def cards_terminal_3(self, prev_card, prev_face, current_card, current_face, next_card, next_face):
-        print()
+        # print()
         print("\t ________________      ________________      ________________")
         print("\t|                |    |                |    |                |")
         if prev_card == '10' and current_card == '10' and next_card == '10':
@@ -143,7 +177,7 @@ class Player:
         elif prev_card == '10': 
             print("\t|  {}            |    |  {}             |    |  {}             |".format(prev_card,current_card,next_card))   
         elif current_card == '10':
-            print("\t|  {}             |    |  {}            |    |  {}            |".format(prev_card,current_card,next_card))   
+            print("\t|  {}             |    |  {}            |    |  {}             |".format(prev_card,current_card,next_card))   
         elif next_card == '10':
             print("\t|  {}             |    |  {}             |    |  {}            |".format(prev_card,current_card,next_card))
         else:
@@ -166,7 +200,7 @@ class Player:
         elif prev_card == '10': 
             print("\t|            {}  |    |            {}   |    |             {}  |".format(prev_card,current_card,next_card))   
         elif current_card == '10':
-            print("\t|            {}   |    |            {}  |    |            {}  |".format(prev_card,current_card,next_card))   
+            print("\t|            {}   |    |            {}  |    |             {}  |".format(prev_card,current_card,next_card))   
         elif next_card == '10':
             print("\t|            {}   |    |            {}   |    |            {}  |".format(prev_card,current_card,next_card))
         else:
@@ -184,10 +218,9 @@ class Bot(Player):
             self.you_wana_play("y")
             self.check_point()
             self.check_bound()
-        # os.system('cls')
 
     def card_terminal_q2(self):
-        print()
+        # print()
         print("\t ________________      ________________ ")
         print("\t|                |    |                |")
         print("\t|                |    |                |")
@@ -202,11 +235,10 @@ class Bot(Player):
         print("\t|                |    |                |")
         print("\t|        *       |    |        *       |")
         print("\t|________________|    |________________|")
-        print()
-
+        # print()
 
     def card_terminal_q1(self):
-        print()
+        # print()
         print("\t ________________")
         print("\t|                |")
         print("\t|                |")
@@ -221,14 +253,51 @@ class Bot(Player):
         print("\t|                |")
         print("\t|        *       |")
         print("\t|________________|")
-        print()
+        # print()
 
+    def show_card(self):
+        print(self.name, "have")
+        if len(self.on_hand["card"]) == 1:
+            if self.on_hand["card"][0][1] == "0":
+                self.cards_terminal_1(str(self.on_hand["card"][0][0])+str(self.on_hand["card"][0][1]) , self.on_hand["card"][0][-2])
+            else:
+                self.cards_terminal_1(self.on_hand["card"][0][0], self.on_hand["card"][0][-2])
+        elif len(self.on_hand["card"]) == 2:
+            if self.on_hand["card"][0][1] == "0" and self.on_hand["card"][1][1] != "0":
+                print("su")
+                self.cards_terminal_2(str(self.on_hand["card"][0][0])+str(self.on_hand["card"][0][1]) , self.on_hand["card"][0][-2] , self.on_hand["card"][1][0], self.on_hand["card"][1][-2])
+            elif self.on_hand["card"][0][1] == "0" and self.on_hand["card"][1][1] == "0":
+                self.cards_terminal_2(str(self.on_hand["card"][0][0])+str(self.on_hand["card"][0][1]), self.on_hand["card"][0][-2] , str(self.on_hand["card"][1][0])+str(self.on_hand["card"][1][1]), self.on_hand["card"][1][-2])
+            else:
+                self.cards_terminal_2(self.on_hand["card"][0][0], self.on_hand["card"][0][-2], self.on_hand["card"][1][0], self.on_hand["card"][1][-2])
+        elif len(self.on_hand["card"]) == 3:
+            if self.on_hand["card"][0][1] == "0" and self.on_hand["card"][1][1] == "0" and self.on_hand["card"][2][1] == "0":
+                    self.cards_terminal_3(str(self.on_hand["card"][0][0])+str(self.on_hand["card"][0][1]), self.on_hand["card"][0][-2], str(self.on_hand["card"][1][0])+str(self.on_hand["card"][1][1]), self.on_hand["card"][1][-2], str(self.on_hand["card"][2][0])+str(self.on_hand["card"][2][1]), self.on_hand["card"][2][-2])
+                    # 10 10 10
+            elif self.on_hand["card"][0][1] != "0" and self.on_hand["card"][1][1] == "0" and self.on_hand["card"][2][1] == "0":
+                self.cards_terminal_3(self.on_hand["card"][0][0], self.on_hand["card"][0][-2], str(self.on_hand["card"][1][0])+str(self.on_hand["card"][1][1]), self.on_hand["card"][1][-2], str(self.on_hand["card"][2][0])+str(self.on_hand["card"][2][1]), self.on_hand["card"][2][-2])
+                # 0 10 10
+            elif self.on_hand["card"][0][1] == "0" and self.on_hand["card"][1][1] != "0" and self.on_hand["card"][2][1] == "0":
+                self.cards_terminal_3(str(self.on_hand["card"][0][0])+str(self.on_hand["card"][0][1]), self.on_hand["card"][0][-2], self.on_hand["card"][1][0], self.on_hand["card"][1][-2], str(self.on_hand["card"][2][0])+str(self.on_hand["card"][2][1]), self.on_hand["card"][2][-2])
+                # 10 0 10
+            elif self.on_hand["card"][0][1] == "0" and self.on_hand["card"][1][1] == "0" and self.on_hand["card"][2][1] != "0":
+                self.cards_terminal_3(str(self.on_hand["card"][0][0])+str(self.on_hand["card"][0][1]), self.on_hand["card"][0][-2], str(self.on_hand["card"][1][0])+str(self.on_hand["card"][1][1]), self.on_hand["card"][1][-2], self.on_hand["card"][2][0], self.on_hand["card"][2][-2])
+                # 10 10 0
+            elif self.on_hand["card"][0][1] != "0" and self.on_hand["card"][1][1] != "0" and self.on_hand["card"][2][1] == "0":
+                self.cards_terminal_3(self.on_hand["card"][0][0], self.on_hand["card"][0][-2], self.on_hand["card"][1][0], self.on_hand["card"][1][-2], str(self.on_hand["card"][2][0])+str(self.on_hand["card"][2][1]), self.on_hand["card"][2][-2])
+                # 0 0 10
+            elif self.on_hand["card"][0][1] != "0" and self.on_hand["card"][1][1] == "0" and self.on_hand["card"][2][1] != "0":
+                self.cards_terminal_3(self.on_hand["card"][0][0], self.on_hand["card"][0][-2], str(self.on_hand["card"][1][0])+str(self.on_hand["card"][1][1]), self.on_hand["card"][1][-2], self.on_hand["card"][2][0], self.on_hand["card"][2][-2])
+                # 0 10 0
+            elif self.on_hand["card"][0][1] == "0" and self.on_hand["card"][1][1] != "0" and self.on_hand["card"][2][1] != "0":
+                self.cards_terminal_3(str(self.on_hand["card"][0][0])+str(self.on_hand["card"][0][1]), self.on_hand["card"][0][-2], self.on_hand["card"][1][0], self.on_hand["card"][1][-2], self.on_hand["card"][2][0], self.on_hand["card"][2][-2])
+                # 10 0 0
+            else:
+                self.cards_terminal_3(self.on_hand["card"][0][0], self.on_hand["card"][0][-2], self.on_hand["card"][1][0], self.on_hand["card"][1][-2], self.on_hand["card"][2][0], self.on_hand["card"][2][-2])
+                
 
 
 class Dealer:
-    def do_you_wanna_play_with_my_bot(self, answer):
-        pass
-
     def who_is_the_winner(self, player1, player2):
         if len(player1.on_hand["card"]) == 2 and len(player2.on_hand["card"]) == 2 or\
         len(player1.on_hand["card"]) == 3 and len(player2.on_hand["card"]) == 3:
@@ -281,22 +350,19 @@ class Dealer:
 
     def check_pocket(self, player1, player2):
         if player1.pocket <= 0:
-            print("--------------------")
-            print(player1.name, "is bankrupt")
-            print(player2.name, "is the winner")
-            print("--------------------")
-            print("Good bye! see you again.")
+            print("\t\t------------------------------")
+            print("\t\t", player1.name, "is bankrupt")
+            print("\t\t", player2.name, "is the winner")
+            print("\t\t--------------------")
+            print("\t\tGood bye! see you again.")
             exit()
         elif player2.pocket <= 0:
-            print("--------------------")
-            print(player2.name,"is bankrupt")
-            print(player1.name, "is the winner")
-            print("--------------------")
-            print("Good bye! see you again.")
+            print("\t\t------------------------------")
+            print("\t\t", player2.name,"is bankrupt")
+            print("\t\t", player1.name, "is the winner")
+            print("\t\t--------------------")
+            print("\t\tGood bye! see you again.")
             exit()
-
-    def money_for_your_enemy(self, player1, player2):
-        pass
 
 
 class Deck:
@@ -339,7 +405,7 @@ class Deck:
     def sent_card_to_player(self, player ): 
         player.on_hand["card"].append(self.draw())
         if player.__class__.__name__ == "Player":
-            print(player.name ,"card:",player.on_hand["card"])
+            # print(player.name ,"card:",player.on_hand["card"])
             if len(player.on_hand["card"]) == 1:
                 if player.on_hand["card"][0][1] == "0":
                     player.cards_terminal_1(str(player.on_hand["card"][0][0])+str(player.on_hand["card"][0][1]) , player.on_hand["card"][0][-2])
@@ -353,16 +419,14 @@ class Deck:
                     player.cards_terminal_2(str(player.on_hand["card"][0][0])+str(player.on_hand["card"][0][1]), player.on_hand["card"][0][-2] , str(player.on_hand["card"][1][0])+str(player.on_hand["card"][1][1]), player.on_hand["card"][1][-2])
                 else:
                     player.cards_terminal_2(player.on_hand["card"][0][0], player.on_hand["card"][0][-2], player.on_hand["card"][1][0], player.on_hand["card"][1][-2])
-            elif len(player.on_hand["card"]) == 3:
-                player.cards_terminal_3(player.on_hand["card"][0][0], player.on_hand["card"][0][-2], player.on_hand["card"][1][0], player.on_hand["card"][1][-2], player.on_hand["card"][2][0], player.on_hand["card"][2][-2])
-        elif player.__class__.__name__ == "Bot":
-            print(player.name ,"card:","??")
-            if len(player.on_hand["card"]) == 1:
-                player.card_terminal_q1()
-            elif len(player.on_hand["card"]) == 2:
-                player.card_terminal_q2()
+            
+        # elif player.__class__.__name__ == "Bot":
+        #     print(player.name ,"card:","??")
+        #     if len(player.on_hand["card"]) == 1:
+        #         player.card_terminal_q1()
+        #     elif len(player.on_hand["card"]) == 2:
+        #         player.card_terminal_q2()
         time.sleep(0.5)
-        
 
 deck = Deck()
 # p1 = Player(input("Enter your name: "))
@@ -374,21 +438,11 @@ max_size = 3
 my_turn.append(p1)
 my_turn.append(bot)
 
-# deck.shuffle()
-# deck.sent_card_to_player(my_turn[1])
-# # time.sleep(1)
-# deck.sent_card_to_player(my_turn[0])
-# deck.sent_card_to_player(my_turn[1])
-# deck.sent_card_to_player(my_turn[0])
-# p1.cards_terminal_1(p1.on_hand["card"][0][0], p1.on_hand["card"][0][1])
-# time.sleep(1)
-# deck.sent_card_to_player(my_turn[0])
-# p1.cards_terminal_2(p1.on_hand["card"][0][0], p1.on_hand["card"][0][1], p1.on_hand["card"][1][0], p1.on_hand["card"][1][-2])
 
 play = True
 while play:
     deck.shuffle()
-    # print("deck:",deck.deck)
+    print("On",my_turn[0].name,"hand and poacket", my_turn[0].pocket)
     deck.sent_card_to_player(my_turn[1])
     my_turn.rotate(-1) #bot
     deck.sent_card_to_player(my_turn[1])
@@ -396,29 +450,23 @@ while play:
     deck.sent_card_to_player(my_turn[1])
     my_turn.rotate(-1) #bot
     deck.sent_card_to_player(my_turn[1])
-
     my_turn.rotate(-1) #player
     my_turn[1].check_my_hand()
     my_turn.rotate(-1) #bot
     my_turn[1].call_check()
-
     my_turn.rotate(-1) #player
+    time.sleep(1)
     my_turn[0].you_wana_play(input("Do you want to draw a card? (y/n): "))
-    print(my_turn[0].name ,"card:",my_turn[0].on_hand["card"])
     time.sleep(1)
-    print(my_turn[1].name ,"card:",my_turn[1].on_hand["card"])
+    my_turn[1].show_card()
     time.sleep(1)
-    print(my_turn[0].name ,"point:",my_turn[0].on_hand["point"])
+    my_turn[1].show_point(my_turn[1].on_hand["point"], my_turn[1].on_hand["bound"])
     time.sleep(1)
-    print(my_turn[1].name ,"point:",my_turn[1].on_hand["point"])
+    my_turn[0].show_point(my_turn[0].on_hand["point"], my_turn[0].on_hand["bound"])
     time.sleep(1)
-    print(my_turn[0].name ,"bound:",my_turn[0].on_hand["bound"])
-    time.sleep(1)
-    print(my_turn[1].name ,"bound:",my_turn[1].on_hand["bound"])
-    time.sleep(1)
-    print("--------------------")
+    print("\t\t------------------------------")
 
-    print("The winner is",dealer.who_is_the_winner(my_turn[0], my_turn[1]))
+    print("\t\tThe winner is",dealer.who_is_the_winner(my_turn[0], my_turn[1]))
     dealer.i_will_take_your_monney(my_turn[0], my_turn[1])
     print(my_turn[0].name ,"pocket:",my_turn[0].pocket)
     print(my_turn[1].name ,"pocket:",my_turn[1].pocket)
@@ -427,11 +475,8 @@ while play:
 
     want_to_play = input("do you want to play again? (y/n): ")
     if want_to_play != "y":
-        print("--------------------")
+        print("\t\t------------------------------")
         if want_to_play != "n":
-            print("Your Answer is not correct")
-        print("Good bye! see you again.")
+            print("\t\tYour Answer is not correct")
+        print("\t\tGood bye! see you again.")
         exit()
-
-
-
