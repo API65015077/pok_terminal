@@ -270,7 +270,6 @@ class Bot(Player):
                 self.cards_terminal_1(self.on_hand["card"][0][0], self.on_hand["card"][0][-2])
         elif len(self.on_hand["card"]) == 2:
             if self.on_hand["card"][0][1] == "0" and self.on_hand["card"][1][1] != "0":
-                print("su")
                 self.cards_terminal_2(str(self.on_hand["card"][0][0])+str(self.on_hand["card"][0][1]) , self.on_hand["card"][0][-2] , self.on_hand["card"][1][0], self.on_hand["card"][1][-2])
             elif self.on_hand["card"][0][1] == "0" and self.on_hand["card"][1][1] == "0":
                 self.cards_terminal_2(str(self.on_hand["card"][0][0])+str(self.on_hand["card"][0][1]), self.on_hand["card"][0][-2] , str(self.on_hand["card"][1][0])+str(self.on_hand["card"][1][1]), self.on_hand["card"][1][-2])
@@ -419,7 +418,6 @@ class Deck:
                     player.cards_terminal_1(player.on_hand["card"][0][0], player.on_hand["card"][0][-2])
             elif len(player.on_hand["card"]) == 2:
                 if player.on_hand["card"][0][1] == "0" and player.on_hand["card"][1][1] != "0":
-                    print("su")
                     player.cards_terminal_2(str(player.on_hand["card"][0][0])+str(player.on_hand["card"][0][1]) , player.on_hand["card"][0][-2] , player.on_hand["card"][1][0], player.on_hand["card"][1][-2])
                 elif player.on_hand["card"][0][1] == "0" and player.on_hand["card"][1][1] == "0":
                     player.cards_terminal_2(str(player.on_hand["card"][0][0])+str(player.on_hand["card"][0][1]), player.on_hand["card"][0][-2] , str(player.on_hand["card"][1][0])+str(player.on_hand["card"][1][1]), player.on_hand["card"][1][-2])
