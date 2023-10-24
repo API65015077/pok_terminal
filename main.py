@@ -5,7 +5,7 @@ import time
 class Player:
     def __init__(self, name):
         self.name = name
-        self.pocket = 100
+        self.pocket = 500
         self.on_hand = {
                         "card": [],
                         "point": 0,
@@ -66,7 +66,7 @@ class Player:
     def you_wana_play(self, call):
         if call == "y":
             if self.__class__.__name__ == "Player":
-                time.sleep(0.5)
+                time.sleep(1.25)
                 self.on_hand["card"].append(deck.draw())
                 print(self.name, "draw a card")
                 if self.on_hand["card"][0][1] == "0" and self.on_hand["card"][1][1] == "0" and self.on_hand["card"][2][1] == "0":
@@ -99,14 +99,18 @@ class Player:
         self.check_bound()
 
     def show_point(self, point, bound):
-        print("\t\t     ____________________")
-        print("\t\t    |                    |")
+        print("\t     ____________________")
+        print("\t    |                    |")
+        if self.__class__.__name__ == "Player":
+            print("\t    |     Name  = {}     |".format(self.name))
+        elif self.__class__.__name__ == "Bot":
+            print("\t    |   Name  = {} |".format(self.name))
         if point >= 10:
-            print("\t\t    |     Point = {}     |".format(point))
+            print("\t    |     Point = {}     |".format(point))
         else:   
-            print("\t\t    |     Point = {}      |".format(point))
-        print("\t\t    |     Bound = {}      |".format(bound))  
-        print("\t\t    |____________________|")
+            print("\t    |     Point = {}      |".format(point))
+        print("\t    |     Bound = {}      |".format(bound))  
+        print("\t    |____________________|")
     
     def cards_terminal_1(self, prev_card, prev_face):
         # print()
@@ -174,6 +178,8 @@ class Player:
             print("\t|  {}            |    |  {}            |    |  {}             |".format(prev_card,current_card,next_card))
         elif prev_card == '10' and next_card == '10':
             print("\t|  {}            |    |  {}             |    |  {}            |".format(prev_card,current_card,next_card))
+        elif current_card == '10' and next_card == '10':
+            print("\t|  {}             |    |  {}            |    |  {}            |".format(prev_card,current_card,next_card))
         elif prev_card == '10': 
             print("\t|  {}            |    |  {}             |    |  {}             |".format(prev_card,current_card,next_card))   
         elif current_card == '10':
@@ -350,18 +356,18 @@ class Dealer:
 
     def check_pocket(self, player1, player2):
         if player1.pocket <= 0:
-            print("\t\t------------------------------")
-            print("\t\t", player1.name, "is bankrupt")
-            print("\t\t", player2.name, "is the winner")
-            print("\t\t--------------------")
-            print("\t\tGood bye! see you again.")
+            print("\t------------------------------")
+            print("\t", player1.name, "is bankrupt")
+            print("\t", player2.name, "is the winner")
+            print("\t--------------------")
+            print("\tGood bye! see you again.")
             exit()
         elif player2.pocket <= 0:
-            print("\t\t------------------------------")
-            print("\t\t", player2.name,"is bankrupt")
-            print("\t\t", player1.name, "is the winner")
-            print("\t\t--------------------")
-            print("\t\tGood bye! see you again.")
+            print("\t------------------------------")
+            print("\t", player2.name,"is bankrupt")
+            print("\t", player1.name, "is the winner")
+            print("\t--------------------")
+            print("\tGood bye! see you again.")
             exit()
 
 
@@ -426,7 +432,7 @@ class Deck:
         #         player.card_terminal_q1()
         #     elif len(player.on_hand["card"]) == 2:
         #         player.card_terminal_q2()
-        time.sleep(0.5)
+        time.sleep(1.25)
 
 deck = Deck()
 # p1 = Player(input("Enter your name: "))
@@ -438,6 +444,13 @@ max_size = 3
 my_turn.append(p1)
 my_turn.append(bot)
 
+# for test
+# deck.deck.append("10♣️")
+# deck.deck.append("1♣️")
+# deck.deck.append("1♦️")
+# deck.sent_card_to_player(my_turn[0])
+# deck.sent_card_to_player(my_turn[0])
+# my_turn[0].you_wana_play("y")
 
 play = True
 while play:
@@ -455,28 +468,34 @@ while play:
     my_turn.rotate(-1) #bot
     my_turn[1].call_check()
     my_turn.rotate(-1) #player
-    time.sleep(1)
+    time.sleep(1.25)
     my_turn[0].you_wana_play(input("Do you want to draw a card? (y/n): "))
-    time.sleep(1)
+    time.sleep(1.25)
     my_turn[1].show_card()
-    time.sleep(1)
+    time.sleep(1.25)
     my_turn[1].show_point(my_turn[1].on_hand["point"], my_turn[1].on_hand["bound"])
-    time.sleep(1)
+    time.sleep(1.25)
     my_turn[0].show_point(my_turn[0].on_hand["point"], my_turn[0].on_hand["bound"])
-    time.sleep(1)
-    print("\t\t------------------------------")
+    time.sleep(1.25)
+    print("\t------------------------------")
 
-    print("\t\tThe winner is",dealer.who_is_the_winner(my_turn[0], my_turn[1]))
+    print("\tThe winner is",dealer.who_is_the_winner(my_turn[0], my_turn[1]))
     dealer.i_will_take_your_monney(my_turn[0], my_turn[1])
-    print(my_turn[0].name ,"pocket:",my_turn[0].pocket)
-    print(my_turn[1].name ,"pocket:",my_turn[1].pocket)
+    print("\t", my_turn[0].name ,"pocket:",my_turn[0].pocket)
+    print("\t", my_turn[1].name ,"pocket:",my_turn[1].pocket)
     my_turn[0].hand0ut(deck) 
     my_turn[1].hand0ut(deck)
 
     want_to_play = input("do you want to play again? (y/n): ")
     if want_to_play != "y":
-        print("\t\t------------------------------")
+        print("\t------------------------------")
         if want_to_play != "n":
-            print("\t\tYour Answer is not correct")
-        print("\t\tGood bye! see you again.")
+            print("\tYour Answer is not correct")
+        print("\tGood bye! see you again.")
         exit()
+    elif want_to_play == "y":
+        print("\t------------------------------")
+    else:
+        print("\tyour answer is not correct")
+        print("\tGood bye! see you again.")
+        exit() 
