@@ -271,8 +271,13 @@ class Bot(Player):
         elif len(self.on_hand["card"]) == 2:
             if self.on_hand["card"][0][1] == "0" and self.on_hand["card"][1][1] != "0":
                 self.cards_terminal_2(str(self.on_hand["card"][0][0])+str(self.on_hand["card"][0][1]) , self.on_hand["card"][0][-2] , self.on_hand["card"][1][0], self.on_hand["card"][1][-2])
+                # 10 0
             elif self.on_hand["card"][0][1] == "0" and self.on_hand["card"][1][1] == "0":
                 self.cards_terminal_2(str(self.on_hand["card"][0][0])+str(self.on_hand["card"][0][1]), self.on_hand["card"][0][-2] , str(self.on_hand["card"][1][0])+str(self.on_hand["card"][1][1]), self.on_hand["card"][1][-2])
+                # 10 10
+            elif self.on_hand["card"][0][1] != "0" and self.on_hand["card"][1][1] == "0":
+                self.cards_terminal_2(self.on_hand["card"][0][0], self.on_hand["card"][0][-2], str(self.on_hand["card"][1][0])+str(self.on_hand["card"][1][1]), self.on_hand["card"][1][-2])
+                # 0 10
             else:
                 self.cards_terminal_2(self.on_hand["card"][0][0], self.on_hand["card"][0][-2], self.on_hand["card"][1][0], self.on_hand["card"][1][-2])
         elif len(self.on_hand["card"]) == 3:
